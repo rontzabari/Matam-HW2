@@ -6,33 +6,29 @@ class Matrix{
     int n; //Rows of matrix
     int m; //Cullomns of matrix
     int len = n * m;
-    int *mat_ptr = new Matrix[len];
+    int *mat_ptr = nullptr;
 
     public:
         //without third argument
-        Matrix(int n, int m, int initial){
-            for(int i = 0; i < len - 1; i++){
-                mat_ptr[i] = initial;
-            }
-        }
+        Matrix(int n, int m, int initial){};
         //with third argument
-        Matrix(int n, int m){
-            for(int i = 0; i < len - 1; i++){
-                mat_ptr[i] = 0;
-            }
-        }
+        Matrix(int n, int m){};
         //default c'tor
-        Matrix() : n(0), m(0){}
+        Matrix(){};
 
         //copy c'tor
-        Matrix(Matrix& mat){
-            n = mat.n;
-            m = mat.m;
-            *mat_ptr = new Matrix[len];
-        }
+        Matrix(Matrix& mat){};
 
         //destructor
-        ~Matrix(){
-            delete[];
-        }
+        ~Matrix(){};
+        
+
+        //get/set functions for Matrix variables
+        int getN();
+        int getM();
+        int* getMatPtr();
+
+        //get/set functions for elements
+        int getMatElement(int i, int j);
+        void setMatElement(int i, int j, int new_value);
 };
