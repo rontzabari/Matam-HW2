@@ -2,7 +2,8 @@
 #include "Pirate.h"
 #include <cstring>
 
-using std::cout, std::endl;
+using std::cout;
+using std::endl; 
 
 
 int main() {

@@ -11,7 +11,8 @@ private:
 
 public:
     Pirate(const string& name);
-
+    //default constructor
+    Pirate();
     ~Pirate() = default;
 
     void setName(const string& name);

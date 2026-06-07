@@ -1,8 +1,12 @@
 
 #include "Pirate.h"
+#include <string>
 
 
 Pirate::Pirate(const string& name): name(name) {}
+
+//default constructor
+Pirate::Pirate(){}
 
 
 void Pirate::setName(const string& name){
