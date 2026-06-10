@@ -10,17 +10,17 @@ class Matrix{
 
     public:
         //without third argument
-        Matrix(int n, int m, int initial){};
+        Matrix(int n, int m, int initial);
         //with third argument
-        Matrix(int n, int m){};
-        //default c'tor
-        Matrix(){};
+        Matrix(int n, int m);
+        //default constructor
+        Matrix();
 
-        //copy c'tor
-        Matrix(Matrix& mat){};
+        //copy constructor - const because we don't want to change the passed matrix
+        Matrix(const Matrix& mat);
 
         //destructor
-        ~Matrix(){};
+        ~Matrix();
         
 
         //get/set functions for Matrix variables
