@@ -31,4 +31,19 @@ class Matrix{
         //get/set functions for elements
         int getMatElement(int i, int j);
         void setMatElement(int i, int j, int new_value);
+
+        // operator overloading
+        Matrix operator+(const Matrix& mat); // add two matrices
+        Matrix operator-(const Matrix& mat); // minus two matrices
+        Matrix operator*(const Matrix& mat); // times
+        Matrix operator+=(const Matrix& mat); // plus equals
+        Matrix operator-=(const Matrix& mat); // minus equals
+        Matrix operator*=(const Matrix& mat); // times equals
+        Matrix operator-();  //unitary minus
+
+        // double sided multiplcation of a scalar and a matrix
+        friend Matrix operator*(int scalar, const Matrix& mat); // scalar times matrix
+      
+        Matrix operator*=(int scalar); // matrix times scalar
+
 };

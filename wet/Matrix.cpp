@@ -17,7 +17,7 @@ Matrix::Matrix(int n, int m){
 
 Matrix::Matrix() : n(0), m(0){}
 
-Matrix::Matrix(Matrix& mat){
+Matrix::Matrix(const Matrix& mat){
     n = mat.n;
     m = mat.m;
     mat_ptr = new int[len];
@@ -52,3 +52,17 @@ void Matrix::setMatElement(int i, int j, int new_value){
     int element = ((i - 1) * width) + j;
     mat_ptr[element] = new_value;
 }
+
+Matrix Matrix::operator+(const Matrix& mat){
+
+    for(int i = 0; i < len - 1; i++){
+        this->mat_ptr[i] += mat.mat_ptr[i];
+    }
+
+    return mat;
+
+}
+
+
+
+
