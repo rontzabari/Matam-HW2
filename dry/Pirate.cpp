@@ -4,10 +4,9 @@
 
 
 
-Pirate::Pirate(const string& name, int bounty, DEVIL_FRUIT devilFruit): name(name), bounty(bounty), devilFruit(devilFruit)  {}
+Pirate::Pirate(const string& name, int bounty, DEVIL_FRUIT devilFruit):
+name(name), bounty(bounty), devilFruit(devilFruit)  {}
 
-//default constructor
-Pirate::Pirate(){}
 
 void Pirate::setName(const string& name){
     this->name = name;
