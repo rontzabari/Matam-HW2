@@ -10,5 +10,6 @@ class MataMvidia{
 
     public:
         MataMvidia(const std::string movie_name, const std::string movie_creator, const Matrix *frames, const int movie_length);
+        ~MataMvidia();
 
 };

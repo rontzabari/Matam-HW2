@@ -5,9 +5,13 @@
     this->movie_creator = movie_creator;
     this->movie_length = movie_length;
 
-    //handking the frames
+    //handling the frames
     this->frames = new Matrix[movie_length];
     for(int i = 0; i < movie_length; i++){
         this->frames[i] = frames[i];
     }
+ }
+
+ MataMvidia::~MataMvidia(){
+    delete[] this->frames;
  }
