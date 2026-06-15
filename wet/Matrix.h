@@ -36,6 +36,9 @@ class Matrix{
         //assignment operator
         Matrix& operator=(const Matrix& mat);
 
+        //access to matrix elemnt using ()
+        int operator()(int e1, int e2);
+
         // operator overloading
         Matrix operator+(const Matrix& mat); // add two matrices
         Matrix operator-(const Matrix& mat); // minus two matrices

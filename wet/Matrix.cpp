@@ -76,6 +76,10 @@ Matrix& Matrix::operator=(const Matrix& mat){
     return *this;
 }
 
+int Matrix::operator()(int e1, int e2){
+    return mat_ptr[(e1 * m) + e2];
+}
+
 
 
 
