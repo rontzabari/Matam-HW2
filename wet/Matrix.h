@@ -1,6 +1,7 @@
-
+#include <iostream>
 
 #pragma once
+
 
 class Matrix{
     int n; //Rows of matrix
@@ -31,6 +32,9 @@ class Matrix{
         //get/set functions for elements
         int getMatElement(int i, int j);
         void setMatElement(int i, int j, int new_value);
+
+        //assignment operator
+        Matrix& operator=(const Matrix& mat);
 
         // operator overloading
         Matrix operator+(const Matrix& mat); // add two matrices

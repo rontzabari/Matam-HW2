@@ -63,6 +63,18 @@ Matrix Matrix::operator+(const Matrix& mat){
 
 }
 
+Matrix& Matrix::operator=(const Matrix& mat){
+
+    if(this->mat_ptr != mat.mat_ptr){
+        return *this;
+    }
+
+    for(int i = 0; i < len; i++){
+        this->mat_ptr[i] = mat.mat_ptr[i];
+    }
+
+    return *this;
+}
 
 
 
