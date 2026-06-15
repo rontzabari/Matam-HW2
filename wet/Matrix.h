@@ -2,6 +2,8 @@
 
 #pragma once
 
+//ostream operator
+std::ostream& operator<<(std::ostream& sd, Matrix& mat);
 
 class Matrix{
     int n; //Rows of matrix

@@ -80,6 +80,16 @@ int Matrix::operator()(int e1, int e2){
     return mat_ptr[(e1 * m) + e2];
 }
 
+std::ostream& operator<<(std::ostream& sd, Matrix& mat){
+    for(int i = 0; i < mat.getN(); i++){
+        sd << "|";
+        for(int j = 0; j < mat.getM(); j++){
+            sd << mat(i, j) << "|";
+        }
+        sd << std::endl;
+    }
+}
+
 
 
 
