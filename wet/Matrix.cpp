@@ -65,7 +65,7 @@ Matrix Matrix::operator+(const Matrix& mat){
 
 Matrix& Matrix::operator=(const Matrix& mat){
 
-    if(this->mat_ptr != mat.mat_ptr){
+    if(this->mat_ptr == mat.mat_ptr){
         return *this;
     }
 
