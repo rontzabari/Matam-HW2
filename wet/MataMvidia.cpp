@@ -108,7 +108,7 @@ std::ostream& operator<<(std::ostream& output, const MataMvidia& movie) {
          output << movie.frames[i];
      }
 
-     output << "-----End Of Movie-----" << std::endl;
+     output << "-----End of Movie-----" << std::endl;
 
      return output;
  }
