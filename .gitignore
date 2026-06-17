@@ -1,0 +1,33 @@
+﻿# -------------------------
+# General junk
+# -------------------------
+.DS_Store
+.idea/
+.vscode/
+cmake-build-*/
+build/
+*.o
+*.out
+*.exe
+*.pch
+*.gch
+*.dSYM/
+
+# -------------------------
+# dry submission only
+# -------------------------
+dry/*
+!dry/dry.pdf
+!dry/log.txt
+!dry/Pirate.h
+!dry/Pirate.cpp
+!dry/main.cpp
+
+# -------------------------
+# wet submission only
+# -------------------------
+wet/*
+!wet/Matrix.h
+!wet/Matrix.cpp
+!wet/MataMvidia.h
+!wet/MataMvidia.cpp
