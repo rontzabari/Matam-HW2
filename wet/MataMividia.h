@@ -13,4 +13,23 @@ class MataMvidia{
         ~MataMvidia();
         MataMvidia& operator=(const MataMvidia& movie);
 
+        //overloaded functions
+        Matrix& operator[](int index);
+
+        const Matrix& operator[](int index) const;
+
+        MataMvidia& operator+=(const MataMvidia& movie);
+
+        MataMvidia& operator+=(const Matrix& frame);
+
+        MataMvidia operator+(const MataMvidia& movie) const;
+
+        // printing
+        friend std::ostream& operator<<(std::ostream& output, const MataMvidia& movie);
+
+
+
+
+
+
 };
