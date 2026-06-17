@@ -53,7 +53,7 @@ class Matrix{
         static double CalcFrobeniusNorm(const Matrix& mat);
 
         // determinant
-        static double CalcDeterminant(const Matrix& mat);
+        static int CalcDeterminant(const Matrix& mat);
 
         // operator overloading
         Matrix operator+(const Matrix& mat) const; // add two matrices
