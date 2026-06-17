@@ -65,7 +65,7 @@ Matrix Matrix::operator+(const Matrix& mat){
 
 Matrix& Matrix::operator=(const Matrix& mat){
 
-    if(this->mat_ptr != mat.mat_ptr){
+    if(this->mat_ptr == mat.mat_ptr){
         return *this;
     }
 
@@ -77,6 +77,9 @@ Matrix& Matrix::operator=(const Matrix& mat){
 }
 
 int Matrix::operator()(int e1, int e2){
+    if(e1 > n - 1 || e1 < 0 || e2 > m - 1 || e2 < 0){
+        exitWithError(MatamErrorType::OutOfBounds);
+    }
     return mat_ptr[(e1 * m) + e2];
 }
 

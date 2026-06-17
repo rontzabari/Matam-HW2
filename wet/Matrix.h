@@ -7,7 +7,7 @@ std::ostream& operator<<(std::ostream& sd, Matrix& mat);
 
 class Matrix{
     int n; //Rows of matrix
-    int m; //Cullomns of matrix
+    int m; //Cullomns of matrix (width)
     int len = n * m;
     int *mat_ptr = nullptr;
 
