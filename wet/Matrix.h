@@ -30,6 +30,8 @@ class Matrix{
         int getM() const;
         int* getMatPtr();
 
+        int operator()(int e1, int e2) const; // access to natrix element
+
         //getter and setter functions for elements
         int getMatElement(int i, int j);
         void setMatElement(int i, int j, int new_value);
@@ -52,7 +54,6 @@ class Matrix{
         static double CalcDeterminant(const Matrix& mat);
 
         // operator overloading
-
         Matrix operator+(const Matrix& mat) const; // add two matrices
         Matrix operator-(const Matrix& mat) const; // minus two matrices
         Matrix operator*(const Matrix& mat) const; // times

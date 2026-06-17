@@ -56,11 +56,11 @@ Matrix& Matrix::operator=(const Matrix& mat) {
 
 }
 
-int Matrix::getN(){
+int Matrix::getN() const{
     return n;
 }
 
-int Matrix::getM(){
+int Matrix::getM() const{
     return m;
 }
 
@@ -271,11 +271,13 @@ Matrix& Matrix::operator=(const Matrix& mat){
     return *this;
 }
 
-int Matrix::operator()(int e1, int e2){
-    if(e1 > n - 1 || e1 < 0 || e2 > m - 1 || e2 < 0){
+int Matrix::operator() (int e1, int e2) const{
+    int n1 = getN();
+    int m1 = getM();
+    if(e1 > n1 - 1 || e1 < 0 || e2 > m1 - 1 || e2 < 0){
         exitWithError(MatamErrorType::OutOfBounds);
     }
-    return mat_ptr[(e1 * m) + e2];
+    return mat_ptr[(e1 * m1) + e2];
 }
 
 std::ostream& operator<<(std::ostream& sd, Matrix& mat){
