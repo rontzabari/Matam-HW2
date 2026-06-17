@@ -10,6 +10,7 @@ class MataMvidia{
 
     public:
         MataMvidia(const std::string movie_name, const std::string movie_creator, const Matrix *frames, const int movie_length);
+        MataMvidia(const MataMvidia& movie);
         ~MataMvidia();
         MataMvidia& operator=(const MataMvidia& movie);
 
@@ -26,5 +27,6 @@ class MataMvidia{
 
         // printing
         friend std::ostream& operator<<(std::ostream& output, const MataMvidia& movie);
+
 
 };

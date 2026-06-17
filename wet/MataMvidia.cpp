@@ -15,23 +15,36 @@
     }
  }
 
+MataMvidia::MataMvidia(const MataMvidia& movie)
+    : MataMvidia(movie.movie_name,
+                 movie.movie_creator,
+                 movie.frames,
+                 movie.movie_length)
+ {
+ }
+
+
  MataMvidia::~MataMvidia(){
     delete[] this->frames;
  }
 
  MataMvidia& MataMvidia::operator=(const MataMvidia& movie){
-    if(this->movie_length != movie.movie_length){
-        exitWithError(MatamErrorType::UnmatchedSizes);
-    }
+     if(this == &movie){
+         return *this;
+     }
+
+     Matrix* newFrames = new Matrix[movie.movie_length];
     this->movie_name = movie.movie_name;
     this->movie_creator = movie.movie_creator;
     this->movie_length = movie.movie_length;
-    if(this->frames == movie.frames){
-        return *this;
-    }
     for(int i = 0; i < this->movie_length; i++){
-        this->frames[i] = movie.frames[i];
+        newFrames[i] = movie.frames[i];
     }
+
+     delete[] frames;
+     frames = newFrames;
+
+     return *this;
  }
 
 Matrix& MataMvidia::operator[](int index) {
@@ -58,8 +71,8 @@ MataMvidia& MataMvidia::operator+=(const MataMvidia& movie) {
          biggerMovie[i] = this->frames[i];
      }
 
-     for (int i = movie_length + 1; i < movie_length + movie.movie_length; i++) {
-         biggerMovie[i] = movie.frames[i];
+     for (int i = 0; i < movie.movie_length; i++) {
+         biggerMovie[this->movie_length + i] = movie.frames[i];
      }
 
      // copy it onto the called object
@@ -77,12 +90,11 @@ MataMvidia& MataMvidia::operator+=(const Matrix& frame) {
      // create a new bigger array
      Matrix* biggerMovie = new Matrix[this->movie_length + 1];
 
-     int i = 0;
-     for (i = 0; i < this->movie_length; i++) {
+     for (int i = 0; i < this->movie_length; i++) {
          biggerMovie[i] = this->frames[i];
      }
 
-     biggerMovie[i + 1] = frame;
+     biggerMovie[movie_length] = frame;
 
      // copy it onto the called object
      delete[] frames;
@@ -101,11 +113,11 @@ MataMvidia MataMvidia::operator+(const MataMvidia& movie) const {
 
 std::ostream& operator<<(std::ostream& output, const MataMvidia& movie) {
      output << "Movie Name: " << movie.movie_name << std::endl;
-     output << "Author: " << movie.movie_creator << std::endl;
+     output << "Author: " << movie.movie_creator << std::endl << std::endl;
 
      for (int i = 0; i < movie.movie_length; i++) {
          output << "Frame " << i << ":" << std::endl;
-         output << movie.frames[i];
+         output << movie.frames[i] << std::endl;
      }
 
      output << "-----End of Movie-----" << std::endl;

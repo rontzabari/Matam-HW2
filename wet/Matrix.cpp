@@ -5,14 +5,13 @@
 #include "Utilities.h"
 #include "cmath"
 
-Matrix::Matrix(int n, int m, int initial) {
-    mat_ptr = new int[len];
-    for(int i = 0; i < len - 1; i++){
+Matrix::Matrix(int n, int m, int initial) : n(n), m(m), len(n * m), mat_ptr(new int[len]) {
+    for(int i = 0; i < len; i++){
         mat_ptr[i] = initial;
     }
 }
 
-Matrix::Matrix() : n(0), m(0){}
+Matrix::Matrix() : n(0), m(0), len(0), mat_ptr(nullptr){}
 
 Matrix::Matrix(const Matrix& mat){
     n = mat.n;
@@ -85,17 +84,20 @@ void Matrix::setMatElement(int i, int j, int new_value){
 }
 
 Matrix Matrix::operator-() const {
-    for (int i = 0; i < len; i++) {
-        this->mat_ptr[i] *= -1;
+    Matrix minusMatrix(*this);
+
+    for (int i = 0; i < minusMatrix.len; i++) {
+        minusMatrix.mat_ptr[i] *= -1;
     }
 
-    return *(this);
+    return minusMatrix;
 }
 
 Matrix& Matrix::operator+=(const Matrix &mat) {
     if (this -> n != mat.n || this -> m != mat.m) {
         exitWithError(MatamErrorType::UnmatchedSizes);
     }
+
 
     for (int i = 0; i < len; i++) {
         this -> mat_ptr[i] += mat.mat_ptr[i];
@@ -129,7 +131,7 @@ Matrix& Matrix::operator*=(const Matrix &mat) {
         exitWithError(MatamErrorType::UnmatchedSizes);
     }
 
-    Matrix product_mat(m, mat.getN());
+    Matrix product_mat(n, mat.getM());
 
     for (int i = 0; i < n; i++) { // for all the (*rows)
 
@@ -153,6 +155,11 @@ Matrix& Matrix::operator*=(const Matrix &mat) {
     (*this) = product_mat;
     return (*this);
 }
+
+Matrix operator*(int scalar, const Matrix& mat) {
+    return mat * scalar;
+}
+
 
 
 
@@ -210,7 +217,7 @@ Matrix Matrix::rotateCounterClockwise() {
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            rotatedMatrix(n - 1 - j,i) = (*this)(i,j);
+            rotatedMatrix(m - 1 - j,i) = (*this)(i,j);
         }
     }
     return rotatedMatrix;
@@ -227,7 +234,7 @@ Matrix Matrix::transpose() const {
     return transposedMatrix;
 }
 
-static double CalcFrobeniusNorm(const Matrix& mat) {
+double Matrix::CalcFrobeniusNorm(const Matrix& mat) {
     double sum = 0;
 
     for (int i = 0; i < mat.getN(); i++) {
@@ -242,7 +249,7 @@ static double CalcFrobeniusNorm(const Matrix& mat) {
 }
 
 Matrix Matrix::operator*(const Matrix& mat) const { // matrix * matrix
-    Matrix newMatrix(mat.getN(), mat.getM());
+    Matrix newMatrix(*this);
     return (newMatrix *= mat);
 }
 
@@ -251,38 +258,7 @@ Matrix Matrix::operator*(int scalar) const {
     return (newMatrix *= scalar);
 }
 
-static double CalcDeterminant(const Matrix& mat) {
 
-    if (mat.getN() != mat.getM()) {
-        exitWithError(MatamErrorType::NotSquareMatrix);
-    }
-
-    double determinant = 0;
-
-    // base case
-
-    if (mat.getM() == 1 && mat.getN() == 1) {
-        determinant = mat(0, 0);
-    }
-    if (mat.getM() == 2 && mat.getN() == 2) {
-        determinant = (mat(1,1) * mat(2,2)) - (mat(1,2) * mat(2,1));
-    }
-
-    return determinant + CalcDeterminant();
-}
-
-Matrix& Matrix::operator=(const Matrix& mat){
-
-    if(this->mat_ptr == mat.mat_ptr){
-        return *this;
-    }
-
-    for(int i = 0; i < len; i++){
-        this->mat_ptr[i] = mat.mat_ptr[i];
-    }
-
-    return *this;
-}
 
 int Matrix::operator() (int e1, int e2) const{
     int n1 = getN();
@@ -302,7 +278,7 @@ int& Matrix::operator()(int e1, int e2){
     return mat_ptr[(e1 * m1) + e2];
 }
 
-std::ostream& operator<<(std::ostream& sd, Matrix& mat){
+std::ostream& operator<<(std::ostream& sd, const Matrix& mat){
     for(int i = 0; i < mat.getN(); i++){
         sd << "|";
         for(int j = 0; j < mat.getM(); j++){
@@ -310,6 +286,7 @@ std::ostream& operator<<(std::ostream& sd, Matrix& mat){
         }
         sd << std::endl;
     }
+    return sd;
 }
 
 
