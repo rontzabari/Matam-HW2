@@ -67,6 +67,10 @@ int Matrix::getM() const{
     return m;
 }
 
+int Matrix::getLen() const{
+    return (getN() * getM());
+}
+
 int* Matrix::getMatPtr(){
     return mat_ptr;
 }
@@ -261,12 +265,18 @@ static double CalcDeterminant(const Matrix& mat) {
 
     // base case
 
-    if (mat.getM() == 1 && mat.getN() == 1) {
+    if (mat.getM() == 0) {
+        determinant = 0;
+    }
+
+    if (mat.getM() == 1) {
         determinant = mat(0, 0);
     }
-    if (mat.getM() == 2 && mat.getN() == 2) {
+    if (mat.getM() == 2) {
         determinant = (mat(1,1) * mat(2,2)) - (mat(1,2) * mat(2,1));
     }
+
+    for(int i = 0; i < mat.len; i++)
 
     return determinant + CalcDeterminant();
 }

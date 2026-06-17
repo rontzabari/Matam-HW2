@@ -28,6 +28,7 @@ class Matrix{
         //getter and setter functions for Matrix variables
         int getN() const;
         int getM() const;
+        int getLen() const;
         int* getMatPtr();
 
         int operator()(int e1, int e2) const; // access to natrix element
