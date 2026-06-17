@@ -255,7 +255,7 @@ static double CalcDeterminant(const Matrix& mat) {
         determinant = (mat(1,1) * mat(2,2)) - (mat(1,2) * mat(2,1));
     }
 
-    return determinant + CalcDeterminant()
+    return determinant + CalcDeterminant();
 }
 
 
