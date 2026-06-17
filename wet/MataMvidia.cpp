@@ -1,4 +1,4 @@
-#include "MataMividia.h"
+#include "MataMvidia.h"
 #include "Utilities.h"
 #include <iostream>
 
@@ -21,7 +21,7 @@
 
  MataMvidia& MataMvidia::operator=(const MataMvidia& movie){
     if(this->movie_length != movie.movie_length){
-        /*exitWithError(UnmatchedSizes);*/
+        exitWithError(MatamErrorType::UnmatchedSizes);
     }
     this->movie_name = movie.movie_name;
     this->movie_creator = movie.movie_creator;

@@ -27,9 +27,4 @@ class MataMvidia{
         // printing
         friend std::ostream& operator<<(std::ostream& output, const MataMvidia& movie);
 
-
-
-
-
-
 };
