@@ -24,6 +24,7 @@ private:
 public:
     Pirate(const string& name, int bounty = 0, DEVIL_FRUIT devilFruit = DEVIL_FRUIT::NONE);
 
+    Pirate();
 
     ~Pirate() = default;
 

@@ -7,6 +7,8 @@
 Pirate::Pirate(const string& name, int bounty, DEVIL_FRUIT devilFruit):
 name(name), bounty(bounty), devilFruit(devilFruit)  {}
 
+Pirate::Pirate() : name(""), bounty(0), devilFruit(NONE) {}
+
 
 void Pirate::setName(const string& name){
     this->name = name;
