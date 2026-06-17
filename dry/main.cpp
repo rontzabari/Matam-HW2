@@ -15,8 +15,10 @@ int main() {
 
     const int crewSize = 2;
     
-    Pirate strawHatCrew[crewSize] = {luffy, zoro};
-    
+    Pirate strawHatCrew[crewSize];
+    strawHatCrew[0] = luffy;
+    strawHatCrew[1] = zoro;
+
     cout << "Straw Hat crew contains:" << endl;
     for (int i = 0; i < crewSize; i++) {
         cout << strawHatCrew[i] << endl;
