@@ -25,10 +25,11 @@ public:
     Matrix& operator=(const Matrix& mat);
 
 
-    //getter and setter functions for Matrix variables
-    int getN() const;
-    int getM() const;
-    int* getMatPtr();
+        //getter and setter functions for Matrix variables
+        int getN() const;
+        int getM() const;
+        int getLen() const;
+        int* getMatPtr();
 
     int operator()(int e1, int e2) const; // access to natrix element
     int& operator()(int e1, int e2);
@@ -51,8 +52,8 @@ public:
      */
     static double CalcFrobeniusNorm(const Matrix& mat);
 
-    // determinant
-    static double CalcDeterminant(const Matrix& mat);
+        // determinant
+        static int CalcDeterminant(const Matrix& mat);
 
     // operator overloading
     Matrix operator+(const Matrix& mat) const; // add two matrices
@@ -72,4 +73,6 @@ public:
 
     Matrix& operator*=(int scalar); // matrix times scalar
     friend std::ostream& operator<<(std::ostream& sd, const Matrix& mat);
+};
+
 };

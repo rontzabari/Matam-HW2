@@ -1,7 +1,5 @@
 #include "Matrix.h"
-
 #include <iostream>
-
 #include "Utilities.h"
 #include "cmath"
 
@@ -258,7 +256,38 @@ Matrix Matrix::operator*(int scalar) const {
     return (newMatrix *= scalar);
 }
 
+static double CalcDeterminant(const Matrix& mat) {
 
+    if (mat.getN() != mat.getM()) {
+        exitWithError(MatamErrorType::NotSquareMatrix);
+    }
+
+    double determinant = 0;
+
+    // base case
+
+    if (mat.getM() == 1 && mat.getN() == 1) {
+        determinant = mat(0, 0);
+    }
+    if (mat.getM() == 2 && mat.getN() == 2) {
+        determinant = (mat(1,1) * mat(2,2)) - (mat(1,2) * mat(2,1));
+    }
+
+    return determinant + CalcDeterminant();
+}
+
+Matrix& Matrix::operator=(const Matrix& mat){
+
+    if(this->mat_ptr == mat.mat_ptr){
+        return *this;
+    }
+
+    for(int i = 0; i < len; i++){
+        this->mat_ptr[i] = mat.mat_ptr[i];
+    }
+
+    return *this;
+}
 
 int Matrix::operator() (int e1, int e2) const{
     int n1 = getN();
