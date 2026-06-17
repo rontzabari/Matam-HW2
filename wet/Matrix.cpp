@@ -1,5 +1,6 @@
 #include "Matrix.h"
 #include "Utilities.h"
+#include "cmath"
 
 Matrix::Matrix(int n, int m, int initial) {
     mat_ptr = new int[len];
@@ -211,6 +212,53 @@ Matrix Matrix::rotateCounterClockwise() {
     }
     return rotatedMatrix;
 }
+
+Matrix Matrix::transpose() const {
+    Matrix transposedMatrix(this->m, this->n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            transposedMatrix(j, i) = (*this)(i,j);
+        }
+    }
+    return transposedMatrix;
+}
+
+static double CalcFrobeniusNorm(const Matrix& mat) {
+    double sum = 0;
+
+    for (int i = 0; i < mat.getN(); i++) {
+        for (int j = 0; j < mat.getM(); j++) {
+            sum += mat(i,j) * mat(i,j);
+        }
+    }
+
+    sum = sqrt(sum);
+
+    return sum;
+}
+
+static double CalcDeterminant(const Matrix& mat) {
+
+    if (mat.getN() != mat.getM()) {
+        exitWithError(MatamErrorType::NotSquareMatrix);
+    }
+
+    double determinant = 0;
+
+    // base case
+
+    if (mat.getM() == 1 && mat.getN() == 1) {
+        determinant = mat(0, 0);
+    }
+    if (mat.getM() == 2 && mat.getN() == 2) {
+        determinant = (mat(1,1) * mat(2,2)) - (mat(1,2) * mat(2,1));
+    }
+
+    return determinant + CalcDeterminant()
+}
+
+
 
 
 

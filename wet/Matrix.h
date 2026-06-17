@@ -38,6 +38,19 @@ class Matrix{
         Matrix rotateClockwise(); // no parameters because it rotates the current matrix
         Matrix rotateCounterClockwise(); // no parameters because it rotates the current matrix
 
+
+        // Transpose
+        Matrix transpose() const;
+
+        /*
+         * Forbinius Norm - sum of the square of all elements in the matrix.
+         * Static because it is not called on an object.
+         */
+        static double CalcFrobeniusNorm(const Matrix& mat);
+
+        // determinant
+        static double CalcDeterminant(const Matrix& mat);
+
         // operator overloading
 
         Matrix operator+(const Matrix& mat) const; // add two matrices
