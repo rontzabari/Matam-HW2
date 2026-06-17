@@ -52,7 +52,6 @@ class Matrix{
         static double CalcDeterminant(const Matrix& mat);
 
         // operator overloading
-
         Matrix operator+(const Matrix& mat) const; // add two matrices
         Matrix operator-(const Matrix& mat) const; // minus two matrices
         Matrix operator*(const Matrix& mat) const; // times
