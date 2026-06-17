@@ -31,6 +31,7 @@ class Matrix{
         int* getMatPtr();
 
         int operator()(int e1, int e2) const; // access to natrix element
+        int& operator()(int e1, int e2); 
 
         //getter and setter functions for elements
         int getMatElement(int i, int j);
