@@ -1,4 +1,7 @@
 #include "Matrix.h"
+
+#include <iostream>
+
 #include "Utilities.h"
 #include "cmath"
 
@@ -236,6 +239,16 @@ static double CalcFrobeniusNorm(const Matrix& mat) {
     sum = sqrt(sum);
 
     return sum;
+}
+
+Matrix Matrix::operator*(const Matrix& mat) const { // matrix * matrix
+    Matrix newMatrix(mat.getN(), mat.getM());
+    return (newMatrix *= mat);
+}
+
+Matrix Matrix::operator*(int scalar) const {
+    Matrix newMatrix(*this);
+    return (newMatrix *= scalar);
 }
 
 static double CalcDeterminant(const Matrix& mat) {
