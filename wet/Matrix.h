@@ -52,8 +52,8 @@ public:
      */
     static double CalcFrobeniusNorm(const Matrix& mat);
 
-        // determinant
-        static int CalcDeterminant(const Matrix& mat);
+    // determinant
+    static int CalcDeterminant(const Matrix& mat);
 
     // operator overloading
     Matrix operator+(const Matrix& mat) const; // add two matrices
@@ -75,4 +75,3 @@ public:
     friend std::ostream& operator<<(std::ostream& sd, const Matrix& mat);
 };
 
-};
