@@ -3,29 +3,31 @@
 #include "Utilities.h"
 #include "cmath"
 
-Matrix::Matrix(int n, int m, int initial) : n(n), m(m), len(n * m), mat_ptr(new int[len]) {
+Matrix::Matrix(int n, int m, int initial) : n(n), m(m), len(n * m), matPtr(new int[len]) {
     for(int i = 0; i < len; i++){
-        mat_ptr[i] = initial;
+        matPtr[i] = initial;
     }
 }
 
-Matrix::Matrix() : n(0), m(0), len(0), mat_ptr(nullptr){}
+Matrix::Matrix() : n(0), m(0), len(0), matPtr(nullptr) {
+
+}
 
 Matrix::Matrix(const Matrix& mat){
     n = mat.n;
     m = mat.m;
     len = mat.len;
-    mat_ptr = new int[len];
+    matPtr = new int[len];
 
     for (int i = 0; i < mat.len; i++) {
-        mat_ptr[i] = mat.mat_ptr[i];
+        matPtr[i] = mat.matPtr[i];
     }
 }
 
 
 //destructor
 Matrix::~Matrix(){
-    delete[] mat_ptr;
+    delete[] matPtr;
 }
 
 /*
@@ -41,16 +43,16 @@ Matrix& Matrix::operator=(const Matrix& mat) {
         return *this;
     }
 
-    delete[] mat_ptr;
+    delete[] matPtr;
 
     m = mat.m;
     n = mat.n;
     len = mat.len;
 
-    mat_ptr = new int[len];
+    matPtr = new int[len];
 
     for (int i = 0; i < len; i++) {
-        mat_ptr[i] = mat.mat_ptr[i];
+        matPtr[i] = mat.matPtr[i];
     }
     return *this;
 
@@ -64,28 +66,36 @@ int Matrix::getM() const{
     return m;
 }
 
-int* Matrix::getMatPtr(){
-    return mat_ptr;
+int Matrix::getLen() const {
+    return len;
 }
 
-int Matrix::getMatElement(int i, int j){
-    exitWithError(MatamErrorType::OutOfBounds);
+int* Matrix::getMatPtr(){
+    return matPtr;
+}
+
+int Matrix::getMatElement(int i, int j) {
+    if ( i < 0 || i >= n || j < 0 || j >= m) {
+        exitWithError(MatamErrorType::OutOfBounds);
+    }
     int width = getM();
-    return ((i - 1) * width) + j;
+    return matPtr[(i * width) + j];
 }
 
 void Matrix::setMatElement(int i, int j, int new_value){
-    exitWithError(MatamErrorType::OutOfBounds);
+    if ( i < 0 || i >= n || j < 0 || j >= m) {
+        exitWithError(MatamErrorType::OutOfBounds);
+    }
     int width = getM();
-    int element = ((i - 1) * width) + j;
-    mat_ptr[element] = new_value;
+    int element = (i * width) + j;
+    matPtr[element] = new_value;
 }
 
 Matrix Matrix::operator-() const {
     Matrix minusMatrix(*this);
 
     for (int i = 0; i < minusMatrix.len; i++) {
-        minusMatrix.mat_ptr[i] *= -1;
+        minusMatrix.matPtr[i] *= -1;
     }
 
     return minusMatrix;
@@ -98,7 +108,7 @@ Matrix& Matrix::operator+=(const Matrix &mat) {
 
 
     for (int i = 0; i < len; i++) {
-        this -> mat_ptr[i] += mat.mat_ptr[i];
+        this -> matPtr[i] += mat.matPtr[i];
     }
 
     return *this;
@@ -118,7 +128,7 @@ Matrix Matrix::operator+(const Matrix& mat) const {
 Matrix& Matrix::operator*=(int scalar) {
 
     for (int i = 0; i < len; i++) {
-        this -> mat_ptr[i] *= scalar;
+        this -> matPtr[i] *= scalar;
     }
 
     return *this;
@@ -136,16 +146,16 @@ Matrix& Matrix::operator*=(const Matrix &mat) {
 
         for (int j = 0; j < mat.getM(); j++) { // for all the columns of mat
             // The sum is for a single element in the product matrix. Reset every (i,j)
-            double element_sum = 0;
+            double elementSum = 0;
             for (int k = 0; k < m; k++) { // for all the columns of (*this)
                 /*
                  * Based on the product matrix formula which is the sum
                  * from k = 1 to n of a(i,k) * b(k,j)
                  */
-                element_sum += (*this)(i, k) * mat(k,j);
+                elementSum += (*this)(i, k) * mat(k,j);
             }
 
-            product_mat(i,j) = element_sum;
+            product_mat(i,j) = elementSum;
         }
 
     }
@@ -167,7 +177,7 @@ Matrix& Matrix::operator-=(const Matrix &mat) {
     }
 
     for (int i = 0; i < len; i++) {
-        this -> mat_ptr[i] -= mat.mat_ptr[i];
+        this -> matPtr[i] -= mat.matPtr[i];
     }
 
     return *this;
@@ -183,10 +193,10 @@ Matrix Matrix::operator-(const Matrix& mat) const{
 
 bool Matrix::operator==(const Matrix& mat) const {
     if (this->n != mat.getN() || this->m != mat.getM()) {
-        exitWithError(MatamErrorType::UnmatchedSizes);
+        return false;
     }
     for (int i = 0; i < len; i++) {
-        if (mat_ptr[i] != mat.mat_ptr[i]) {
+        if (matPtr[i] != mat.matPtr[i]) {
             return false;
         }
     }
@@ -199,7 +209,7 @@ bool Matrix::operator!=(const Matrix& mat) const {
     return !((*this) == mat);
 }
 
-Matrix Matrix::rotateClockwise() {
+Matrix Matrix::rotateClockwise() const {
     Matrix rotatedMatrix(this->m, this->n);
 
     for (int i = 0; i < n; i++) {
@@ -210,7 +220,7 @@ Matrix Matrix::rotateClockwise() {
     return rotatedMatrix;
 }
 
-Matrix Matrix::rotateCounterClockwise() {
+Matrix Matrix::rotateCounterClockwise() const {
     Matrix rotatedMatrix(this->m, this->n);
 
     for (int i = 0; i < n; i++) {
@@ -256,7 +266,7 @@ Matrix Matrix::operator*(int scalar) const {
     return (newMatrix *= scalar);
 }
 
-static int CalcDeterminant(const Matrix& mat) {
+int Matrix::CalcDeterminant(const Matrix& mat) {
 
     if (mat.getN() != mat.getM()) {
         exitWithError(MatamErrorType::NotSquareMatrix);
@@ -284,7 +294,9 @@ static int CalcDeterminant(const Matrix& mat) {
         for(int j = 1; j < mat.getN(); j++) {
             int col = 0;
             for(int k = 0; k < mat.getN(); k++){
-                if(i == k) continue;
+                if(i == k) {
+                    continue;
+                }
                 minor(row, col) = mat(j, k);
                 col++;
         }
@@ -304,7 +316,7 @@ int Matrix::operator() (int e1, int e2) const{
     if(e1 > n1 - 1 || e1 < 0 || e2 > m1 - 1 || e2 < 0){
         exitWithError(MatamErrorType::OutOfBounds);
     }
-    return mat_ptr[(e1 * m1) + e2];
+    return matPtr[(e1 * m1) + e2];
 }
 
 int& Matrix::operator()(int e1, int e2){
@@ -313,7 +325,7 @@ int& Matrix::operator()(int e1, int e2){
     if(e1 > n1 - 1 || e1 < 0 || e2 > m1 - 1 || e2 < 0){
         exitWithError(MatamErrorType::OutOfBounds);
     }
-    return mat_ptr[(e1 * m1) + e2];
+    return matPtr[(e1 * m1) + e2];
 }
 
 std::ostream& operator<<(std::ostream& sd, const Matrix& mat){

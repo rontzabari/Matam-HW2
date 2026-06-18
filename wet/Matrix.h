@@ -6,7 +6,7 @@ class Matrix {
     int n; //Rows of matrix
     int m; //Columns of matrix
     int len;
-    int *mat_ptr;
+    int *matPtr;
 
 public:
     Matrix(int n, int m, int initial = 0);
@@ -39,8 +39,8 @@ public:
     void setMatElement(int i, int j, int new_value);
 
     // rotation
-    Matrix rotateClockwise(); // no parameters because it rotates the current matrix
-    Matrix rotateCounterClockwise(); // no parameters because it rotates the current matrix
+    Matrix rotateClockwise() const; // no parameters because it rotates the current matrix
+    Matrix rotateCounterClockwise() const; // no parameters because it rotates the current matrix
 
 
     // Transpose

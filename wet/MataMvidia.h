@@ -3,13 +3,14 @@
 #include "Matrix.h"
 
 class MataMvidia{
-    int movie_length;
+    int movieLength;
     Matrix *frames;
-    std::string movie_name;
-    std::string movie_creator;
+    std::string movieName;
+    std::string movieCreator;
 
     public:
-        MataMvidia(const std::string movie_name, const std::string movie_creator, const Matrix *frames, const int movie_length);
+        MataMvidia(const std::string movieName, const std::string movieCreator,
+            const Matrix *frames, const int movieLength);
         MataMvidia(const MataMvidia& movie);
         ~MataMvidia();
         MataMvidia& operator=(const MataMvidia& movie);
