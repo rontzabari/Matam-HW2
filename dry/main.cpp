@@ -13,14 +13,14 @@ int main() {
     Pirate zoro("Zoro", 500000);
 
 
-    const int crewSize = 2;
+    const int CREW_SIZE = 2;
     
-    Pirate strawHatCrew[crewSize];
+    Pirate strawHatCrew[CREW_SIZE];
     strawHatCrew[0] = luffy;
     strawHatCrew[1] = zoro;
 
     cout << "Straw Hat crew contains:" << endl;
-    for (int i = 0; i < crewSize; i++) {
+    for (int i = 0; i < CREW_SIZE; i++) {
         cout << strawHatCrew[i] << endl;
     }
 
